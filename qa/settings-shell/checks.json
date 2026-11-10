@@ -1,0 +1,31 @@
+{
+  "checks": [
+    "sidebar compact width",
+    "content grows",
+    "detail state retained",
+    "compact persists after reload",
+    "compact across pages",
+    "native settings page",
+    "settings selected",
+    "settings knows origin",
+    "reject zero threshold",
+    "reject non HTTP URL",
+    "show token",
+    "token cleared after save",
+    "no secret in browser storage",
+    "draft persists",
+    "cancel restore keeps draft",
+    "restore resets draft",
+    "escape retains edits",
+    "return to same process run",
+    "expanded width restored",
+    "mobile menu initially closed",
+    "mobile menu opens",
+    "escape closes drawer",
+    "backdrop closes drawer",
+    "mobile no overflow",
+    "menu navigation closes drawer",
+    "no JS errors"
+  ],
+  "errors": []
+}

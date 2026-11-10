@@ -1,0 +1,52 @@
+{
+  "source": {
+    "capturedAt": "2026-11-05T00:33:32.547Z",
+    "snapshotSha256": "faf61bafa6cebc7aad6eed085e6263e8f0d0aea6a2c4a966c9b827046d62cdf6",
+    "demo": false
+  },
+  "run": {
+    "id": "01a1a000-3ee6-7115-a219-29a6d1701910",
+    "issue": "CXTE-4",
+    "issueTitle": "CXTE-3 需求澄清与拆解：V2 传输加密迁移（demo_new）",
+    "agentName": "需求文档拆解分析师",
+    "status": "completed",
+    "startedAt": "2026-11-03T06:06:44Z",
+    "completedAt": "2026-11-03T06:27:28Z"
+  },
+  "record": {
+    "kind": "tool",
+    "seq": 747,
+    "call": {
+      "seq": 747,
+      "callId": "319de1e5-5b5f-4d5f-a087-ccd21aedaa50",
+      "type": "tool_use",
+      "tool": "write",
+      "content": "",
+      "input": {
+        "preview": "{\"content\":\"# 验收与自测条目（指南 §5 → demo_new 可验收条目）\\n\\n## 1. 文档信息（必选）\\n\\n| 项目 | 内容 |\\n|------|------|\\n| 文档版本 | v1 |\\n| 所属模块 | 验收与自测条目 |\\n| 分析日期 | 2026-11-03 |\\n\\n## 2. 变更记录（必选）\\n\\n| 版本 | 日期 | 变更内容 | 变更人 |\\n|------|------|----------|--------|\\n| v1 | 2026-11-03 | 初始版本：把指南 §5.1（编译与协议自测）、§5.2（18 项浏览器联调）逐条转为可判定验收条目（A/B 组），§5.3 遗留转为 C 组登记；每条标注前置条件（后端/数据源/会话中间件/token/前端构建）与本机可跑性；对阻塞在冲突 C-1/C-2 的条目预置「未覆盖」判定与原因口径 | 需求文档拆解分析师 |\\n\\n## 3. 模块概述（必选）\\n\\n### 3.1 定位\\n\\n把「按迁移说明文档完成迁移并自测」这句用户验收口径翻译成**可逐条打勾、可如实记未覆盖**的清单：A 组＝指南 §5.1（不启动浏览器也能做）、B 组＝指南 §5.2（浏览器联调 18 项）、C 组＝指南 §5.3（已知遗留，如实登记，不计为不通过）。本模块只做验收条目化与本机可跑性预判，不改动协议、不新增指南之外的验收标准。\\n\\n### 3.2 边界\\n\\n- 包含范围：A/B/C 三组条目、每条的前置条件与可跑性、未覆盖项的登记口径、验收活动的执行顺序与角色。\\n- 不包含范围：如何完成迁移改造（模块 03/04）、环境中间件是否更换（冲突 C-2 属人工决策）、正式需求评审（`req-review-3.1.0`）。\\n\\n### 3.3 目标\\n\\n- 每条验收项都有**明确判据**（命令 + 期望计数/期望报文），不出现「正常」「可用」这类不可判定写法。\\n- 本机环境跑不动的条目**提前标明阻塞原因与所属冲突编号**，施工与自测阶段直接照录「未覆盖」，不假装通过。\\n- 前后端成对关系与 fail-closed 口径在验收判据中可复核（成对发布纪律的取证点）。\\n\\n### 3.4 判定口径（执行前必读）\\n\\n| # | 口径 | 依据 |\\n|---|---|---|\\n| 1 | 前置符号：`BE`＝需后端以 `-Dfile.encoding=UTF-8` 启动（8080，context-path `/demo_new-facade`）；`DB`＝数据源 `10.1.16.40:3306` 可用；`SESS`＝会话/缓存中间件（Redis `127.0.0.1:6379` 或 memcached `192.168.0.59:11211`）可用；`TK`＝登录后从 localStorage 取 `bwToken`；`FE`＝前端 dev server（8081）或构建产物 + 浏览器；`NPM`＝已执行 `npm install` | 01 号文档 §4/§8 实测 |\\n| 2 | 可跑性四档：✅ 本机可跑（前置已满足）／🟡 条件可跑（只差一次性动作：建运行时配置目录、`npm install`）／⛔ 预计未覆盖（依赖本机不可用中间件或待人工决策，实测能跑再升级为通过）／🚫 本项目不适用（给依据，改用替代判据） | CXTE-4 拆解要求 3 |\\n| 3 | **协议层判定的无 token 替代取证法**：过滤器链上鉴权（order 6）先于 V2（order 8），无有效 token 打覆盖路径会先回 401 明文、拿不到 `TRANSPORT_*`。因此协议类条目（A-07、B-05~B-10、B-13）应选**既在 anon 白名单、又在 `include-paths=/**` 覆盖内**的端点做探针（候选 `/doLogin.do`，anon 段实测在列），此类判定不需登录；只有**真实业务接口往返与中文 LIKE 查询**（A-08、B-01/03/04/17）必须 `TK`。探针端点最终取值由技术设计阶段勘察确认 | 01 号文档 §4 第 3/4/8 行；指南 §5.1「T3/T3b/T3c 需 `--token`」 |\\n| 4 | 未覆盖项的登记要求：写「未覆盖」必须同时给出**阻塞条目 + 阻塞原因 + 解除条件**（例如「A-08 未覆盖：C-2 会话中间件不可达，登录取不到 token」），禁止只写「未覆盖」或改判「通过」 | CXTE-4 拆解要求 3；指南 §5.3 口径 |\\n| 5 | 判据形态要求：计数类写「N/N」（如单测 5/5、互通 4/4、T3 19/19、换钥回归 7/7）；报文类写可观测对象（Network 请求体为信封 JSON／响应头 `X-Transport-Error` 值）；日志类写可 grep 的行（`Loading local settings from ...`、`BackFilter - requestPath:` 先于 `TransportV2Filter`） | 指南 §4 坑⑪、§5.1 |\\n\\n## 4. 用例清单（必选）\\n\\n> 本模块的用例粒度＝**一次可独立触发、独立记录的自测活动**；每组条目（A/B/C）内的每一条仍是独立判定、独立记录的最小单元，用例不把多条判定合并成一个结论。\\n\\n### 4.1 用例列表\\n\\n| 用例编号 | 用例名称 | 覆盖关系与入口 | 改动类型 | 触发角色 | 前置条件 | 后置条件 | 优先级 |\\n|----------|----------|----------------|----------|----------|----------|----------|--------|\\n| UC-201 | 执行后端编译与依赖收敛自测 | 不适用 | 新增 | DEV | 模块 03 UC-001/UC-002 完成 | A-01、A-02 有判定结论与证据 | P0 |\\n| UC-202 | 执行前端生产构建自测 | 不适用 | 新增 | DEV | 模块 04 F1~F6 完成；`npm install` 完成 | A-03 有判定结论（含静态库随发布证据） | P0 |\\n| UC-203 | 执行后端加密单测与互通向量导出 | 覆盖：互通向量文件 `target/transport-vector.json`（本 UC 写入，UC-204 只读消费） | 新增 | DEV | UC-201 通过 | A-05 记录 5/5 与向量文件路径 | P0 |\\n| UC-204 | 执行 Java 与 JS 协议互通自测 | 覆盖：互通向量文件 `target/transport-vector.json`（UC-203 写入，本 UC 消费）；入口：`it-test.js` | 新增 | DEV | UC-202、UC-203 通过 | A-06 记录 4/4 | P0 |\\n| UC-205 | 执行协议级与边界套件 | 不适用 | 新增 | DEV | A-04 后端运行态就绪（模块 03 UC-006） | A-07/A-08 逐条判定；受阻条目按口径 4 登记 | P0 |\\n| UC-206 | 执行换钥恢复回归 | 不适用 | 新增 | DEV | UC-202 完成 | A-09 记录 7/7 或不可跑原因 | P1 |\\n| UC-207 | 执行浏览器联调批次 | 不适用 | 新增 | DEV | A-04 就绪；`BE`+`FE`（+多数 `TK`） | B-01~B-18 逐条判定并记录证据 | P0 |\\n| UC-208 | 登记未覆盖项与已知遗留 | 不适用 | 新增 | DEV | UC-201~UC-207 全部有结论 | C 组 + 未覆盖清单成文，随交付提交 | P0 |\\n| UC-209 | 演练开关回滚口径 | 不适用 | 新增 | DEV | UC-207 通过 | A-10 记录两侧关闭后的明文回归结论 | P2 |\\n\\n### 4.2 用例详情\\n\\n#### UC-201 执行后端编译与依赖收敛自测\\n\\n**改动类型**：新增（本次自测活动，非既有业务动作）\\n\\n**触发角色**：DEV\\n\\n**前置条件**：模块 03 UC-001（pom 底座三处改动）、UC-002（12 个类入库）完成；无进程占用 war。\\n\\n**基本流程：**\\n1. DEV 在工程根执行 `mvn -o clean package`（monorepo 一次构建两模块）。\\n2. 清点 `demo_new-facade/target` 的 `WEB-INF/lib` 加密相关 jar。\\n3. 操作成功：`BUILD SUCCESS` + war 产出 + lib 内 BC 相关仅 `bcprov-jdk15on-1.69.jar` 与 `bw-funcation-common-4.0.3.jar`。\\n4. 操作失败：见下方「异常处理」表。\\n\\n**异常处理**：\\n\\n| 场景 | 触发条件 | 处理方式 | 用户可见结果 |\\n|------|----------|----------|--------------|\\n| 旧加密 jar 仍在包内 | pom 排除/覆盖未生效（`sgcc-sm`、`SGSM`、`bcprov-jdk16`） | 回改模块 03 UC-001 排除项，重新构建并复点 | lib 清单出现旧 jar，A-02 判不通过 |\\n| 4.0.3 拉取失败 | 私服不可达且本地仓缺件 | 改在线构建或先 `dependency:get`；仍失败上报阻塞 | mvn 报 `Could not resolve ... bw-funcation-common:4.0.3` |\\n| 构建被文件占用 | 后端进程锁定 war/jar | 停进程后重试 | `mvn clean` 报文件占用失败 |\\n\\n**验收标准**：\\n1. 根目录 `mvn -o clean package` 输出 `BUILD SUCCESS`（reactor 含 3 个模块）且产出 war。\\n2. `WEB-INF/lib` 中 BC 相关 jar 计数：`bcprov-jdk15on-1.69` 有且仅 1、`bcprov-jdk16`/`SGSM`/`sgcc-sm` 均 0。\\n3. 全 lib 的 `com/sgitg/` **类定义**条目数为 0；**字符串引用**命中数单列（已知 1 处：`bw-security-login` 的 `Sm3Util` 死代码），两类计数不得合并统计、不得写成「零命中」。\\n\\n**对应操作**：工程根 Maven 命令、`WEB-INF/lib` 清点脚本。\\n\\n#### UC-202 执行前端生产构建自测\\n\\n**改动类型**：新增\\n\\n**触发角色**：DEV\\n\\n**前置条件**：`demo_new-vue` 下 `npm install` 完成（冲突 C-7）；模块 04 F1~F6 落位。\\n\\n**基本流程：**\\n1. DEV 执行 `npm run build`。\\n2. 检查产物 `dist`（或 `demo_new-vue/dist`）中静态库与 app bundle。\\n3. 操作成功：构建退出码 0，`dist/static/security/transport/` 含 UMD 三件（js + `LICENCE_MIT` + `README.md`）。\\n4. 操作失败：见「异常处理」表。\\n\\n**扩展流程：**\\n- Node 24 构建报 OpenSSL/`digital envelope routines` 类错误：以 `NODE_OPTIONS=--openssl-legacy-provider` 重试并在记录中注明「构建器兼容性兜底，非协议问题」（冲突 C-7）。\\n\\n**异常处理**：\\n\\n| 场景 | 触发条件 | 处理方式 | 用户可见结果 |\\n|------|----------|----------|--------------|\\n| 模块解析错误 | `@/config` 的 7 常量未落位即被 import | 回模块 04 UC-103 补齐 | 构建报 `export 'xxx' was not found in '@/config'` |\\n| 静态库未随发布 | 三件不在 `public/` 下 | 修正落位路径重建 | `dist` 内无 `static/security/transport/`，A-03 判不通过 |\\n| 构建 OOM/超时 | 本机内存或 Node 版本限制 | 记录原始报错，判「未覆盖 + 原因」，不改构建配置硬凑 | 构建进程异常终止 |\\n\\n**验收标准**：\\n1. `npm run build` 退出码为 0。\\n2. `dist/static/security/transport/sm-crypto-v2-1.15.1.umd.js` 存在，且 app bundle（`static/js/*.js`）内 grep 不到该库代码体（证明运行时动态加载、未入 bundle）。\\n\\n**对应操作**：`npm run build`、`dist` 清点。\\n\\n#### UC-203 执行后端加密单测与互通向量导出\\n\\n**改动类型**：新增\\n\\n**触发角色**：DEV\\n\\n**前置条件**：UC-201 通过（依赖收敛后才有正确 BC 运行态）；facade 的 `spring-boot-starter-test` 实测在依赖树内（`junit-jupiter:5.8.2`）。\\n\\n**基本流程：**\\n1. DEV 执行 T1 单测（往返 / AAD 篡改 / 密文篡改 / 重放 / 缺钥拒启 5 项）。\\n2. 确认测试导出互通向量文件 `demo_new-facade/target/transport-vector.json`。\\n3. 操作成功：5/5 通过且向量文件生成。\\n4. 操作失败：见「异常处理」表。\\n\\n**异常处理**：\\n\\n| 场景 | 触发条件 | 处理方式 | 用户可见结果 |\\n|------|----------|----------|--------------|\\n| 缺钥拒启用例失败 | 该项预期「启动即失败」但实际放行 | 判不通过，回模块 03 UC-005 的 fail-fast 逻辑核对 | 该项 `AssertionError`（期望异常未抛出） |\\n| 向量文件未生成 | 导出用例被跳过（`-DskipTests` 或 profile 过滤） | 不加 skip 重跑 | 文件不存在，UC-204 无法执行 |\\n\\n**验收标准**：\\n1. 单测计数 5/5 通过（含 `Tests run: 5, Failures: 0, Errors: 0`）。\\n2. `target/transport-vector.json` 存在且可被 JSON 解析（供 UC-204 消费）。\\n\\n**对应操作**：facade 模块 Maven 测试命令。\\n\\n#### UC-204 执行 Java 与 JS 协议互通自测\\n\\n**改动类型**：新增\\n\\n**触发角色**：DEV\\n\\n**前置条件**：UC-202、UC-203 通过；`node` 可用；UMD 库需 hkdf 桩（`Module._resolveFilename` 重定向到 `stub-hkdf.js`，随包已实现）。\\n\\n**基本流程：**\\n1. DEV 在 `demo_new-vue` 下执行 `node .transport-it/it-test.js`。\\n2. 读取 UC-203 导出的向量，跑 4 项 Java→JS 互通。\\n3. 操作成功：4/4 通过。\\n4. 操作失败：见「异常处理」表。\\n\\n**异常处理**：\\n\\n| 场景 | 触发条件 | 处理方式 | 用户可见结果 |\\n|------|----------|----------|--------------|\\n| 向量路径不通 | 脚本仍指源工程路径 | 改为 `demo_new-facade/target/transport-vector.json` | 脚本报文件不存在 |\\n| UMD 加载失败 | Node 下解析不到 `@noble/hashes/hkdf` | 确认 hkdf 桩重定向生效 | `Cannot find module '@noble/hashes/hkdf'` |\\n| 互通不过（密文不一致） | 前后端协议参数（AAD 拼接顺序/C1C3C2/HKDF）被改写 | 判不通过，回到指南口径核对随包代码是否被改动 | 4 项中若干项 mismatch 明细 |\\n\\n**验收标准**：\\n1. 互通计数 4/4 通过。\\n2. 失败时为 0 项「静默跳过」（跳过项须写原因，不计入通过数）。\\n\\n**对应操作**：`.transport-it/it-test.js`。\\n\\n#### UC-205 执行协议级与边界套件\\n\\n**改动类型**：新增\\n\\n**触发角色**：DEV\\n\\n**前置条件**：A-04 后端 UTF-8 运行态就绪（模块 03 UC-006）；`BASE` 已改为 `http://localhost:8080/demo_new-facade`；需 token 子集另备 `bwToken`。\\n\\n**基本流程：**\\n1. DEV 执行 `node .transport-it/e2e-protocol.js`（19 项：公钥发现／业务往返／中文体正反 T3c／重放／篡改／明文拒绝／超限／豁免直通／401 回退）。\\n2. 无 token 项按口径 3 的探针端点取证；需 token 项以 `--token <tokenId>` 注入。\\n3. 操作成功：19/19 通过。\\n4. 操作失败：见「异常处理」表。\\n\\n**扩展流程：**\\n- 后端起不来（冲突 C-1/C-2）：本 UC 判「未覆盖」，按口径 4 写明阻塞条目与解除条件，不逐项臆测结论。\\n\\n**异常处理**：\\n\\n| 场景 | 触发条件 | 处理方式 | 用户可见结果 |\\n|------|----------|----------|--------------|\\n| 中文用例必失败 | 后端未带 `-Dfile.encoding=UTF-8`（坑⑬） | 补参数重启复跑（判据在 A-10/B-18 另有对照） | T3c 正向失败：403「特殊字符【?】」或结果乱码 |\\n| 协议项被 401 抢先 | 探针端点不在 anon 白名单（口径 3） | 换用覆盖内且 anon 的探针端点 | 期望 400 `TRANSP",
+        "notice": "插件已截断工具输入"
+      },
+      "output": "",
+      "outputTruncated": null,
+      "contentTruncated": false,
+      "inputTruncated": true,
+      "isError": null,
+      "createdAt": "2026-11-03T06:21:13.480349Z"
+    },
+    "result": {
+      "seq": 748,
+      "callId": "319de1e5-5b5f-4d5f-a087-ccd21aedaa50",
+      "type": "tool_result",
+      "tool": "write",
+      "content": "",
+      "input": null,
+      "output": "Created file successfully: E:/project/demo_new/docs/requirements/CXTE-4/05-验收与自测条目.md",
+      "outputTruncated": false,
+      "contentTruncated": false,
+      "inputTruncated": false,
+      "isError": null,
+      "createdAt": "2026-11-03T06:21:14.114618Z"
+    },
+    "ambiguous": false
+  }
+}

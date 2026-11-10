@@ -1,0 +1,104 @@
+{
+  "title": "Multica 暖奶油主题 · 设计对照审阅",
+  "exportedAt": "2026-11-06T06:56:17.421Z",
+  "snapshot": {
+    "capturedAt": "2026-11-05T00:33:32.547Z",
+    "label": "2026-11-05 08:33:32",
+    "workspace": "cx_test_new",
+    "tasks": 10,
+    "runs": 22,
+    "logs": 6960,
+    "demo": false
+  },
+  "scope": "设计前为本地真实截图；设计后的来源逐页标注，包含优化效果稿与新版交互实拍。尚未迁入原型。",
+  "pages": [
+    {
+      "id": "tasks",
+      "title": "任务监控",
+      "scenario": "10 个真实任务 · 列表与层级",
+      "afterSource": "AI 优化效果稿",
+      "afterImage": "./assets/after-tasks.png",
+      "verdict": "pending",
+      "verdictLabel": "暂未决定",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "id": "detail",
+      "title": "任务详情与审阅",
+      "scenario": "CXTE-9 · 审阅结论展开",
+      "afterSource": "AI 优化效果稿",
+      "afterImage": "./assets/after-detail.png",
+      "verdict": "pending",
+      "verdictLabel": "暂未决定",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "id": "graph",
+      "title": "调用流图",
+      "scenario": "CXTE-4 · 9 个节点 · 5 条已确认关系",
+      "afterSource": "AI 优化效果稿",
+      "afterImage": "./assets/after-graph.png",
+      "verdict": "changes",
+      "verdictLabel": "需要调整",
+      "note": "核验用意见：保留节点关系，调整侧栏宽度。",
+      "updatedAt": "2026-11-06T06:56:16.466Z"
+    },
+    {
+      "id": "waterfall",
+      "title": "时间瀑布",
+      "scenario": "#d1701910 · 1,088 条日志 · 343 个片段",
+      "afterSource": "新版交互实拍",
+      "afterImage": "./assets/after-waterfall-inline-v3.png",
+      "verdict": "pending",
+      "verdictLabel": "暂未决定",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "id": "process",
+      "title": "执行过程",
+      "scenario": "#d1701910 · 完整快照 · 190 条过程记录",
+      "afterSource": "新版交互实拍",
+      "afterImage": "./assets/after-process-dialogue-v3.png",
+      "verdict": "pending",
+      "verdictLabel": "暂未决定",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "id": "alerts",
+      "title": "异常提醒",
+      "scenario": "当前提醒 0 · 历史失败 8 次 · 2 个任务",
+      "afterSource": "AI 优化效果稿",
+      "afterImage": "./assets/after-alerts.png",
+      "verdict": "pending",
+      "verdictLabel": "暂未决定",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "id": "performance",
+      "title": "执行性能",
+      "scenario": "3 次运行有用量记录 · 终态统计样本 0",
+      "afterSource": "AI 优化效果稿",
+      "afterImage": "./assets/after-performance.png",
+      "verdict": "pending",
+      "verdictLabel": "暂未决定",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "id": "runtime",
+      "title": "运行时",
+      "scenario": "4 个节点 · 快照时可接收任务 4 · 执行中 0",
+      "afterSource": "AI 优化效果稿",
+      "afterImage": "./assets/after-runtime.png",
+      "verdict": "pending",
+      "verdictLabel": "暂未决定",
+      "note": "",
+      "updatedAt": null
+    }
+  ]
+}

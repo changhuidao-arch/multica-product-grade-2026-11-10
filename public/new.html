@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#faf7f0">
+  <title>Multica · 任务观测台</title>
+  <link rel="icon" href="./mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./ui.css">
+</head>
+<body>
+  <aside class="side"></aside>
+  <div class="shell">
+    <header class="top">
+      <div class="top-title"><small id="crumb">工作区 / cx_test_new</small><h1 id="heading">任务监控</h1></div>
+      <span class="snapshot-chip" title="当前展示的是本地快照，不是实时数据">本地快照 · 11-05 08:33</span>
+      <button id="reload" class="icon-button" type="button" aria-label="重载快照" title="重载快照"><span data-icon="refresh"></span></button>
+      <select id="theme" aria-label="外观主题"><option value="cream">暖奶油</option><option value="paper">素纸</option><option value="dark">夜间</option></select>
+    </header>
+    <main id="main" aria-live="polite"><div class="skeleton" role="status" aria-label="正在读取真实快照…"><i></i><i></i></div></main>
+  </div>
+  <dialog id="reader" aria-labelledby="reader-heading"><header><h2 id="reader-heading">完整记录</h2><button id="close-reader" type="button" aria-label="关闭"><span data-icon="close"></span></button></header><div id="reader-body"></div></dialog>
+  <script type="module" src="./new.js"></script>
+</body>
+</html>

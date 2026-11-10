@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#faf7f0">
+  <title>时间瀑布 · Multica</title>
+  <link rel="icon" href="./mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./ui.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="top app-header">
+      <nav class="breadcrumb" aria-label="位置">任务监控 <span>/</span> CXTE-4 <span>/</span> <span>#d1701910</span></nav>
+      <div class="header-end"><span class="snapshot-chip" title="当前展示的是本地快照，不是实时数据">本地快照 · 11-05 08:33</span><select id="theme" aria-label="外观主题"><option value="cream">暖奶油</option><option value="paper">素纸</option><option value="dark">夜间</option></select></div>
+    </header>
+    <main>
+      <div class="run-heading">
+        <div class="heading-identity"><span class="agent-avatar" aria-hidden="true"></span><div><p class="eyebrow">运行分析</p><div class="heading-line"><h1>时间瀑布</h1><span class="run-status">运行完成</span></div><p class="run-meta">需求文档拆解分析师</p></div></div>
+        <button id="collapse-all" class="quiet" disabled><span data-icon="collapse"></span>收起详情</button>
+      </div>
+      <div id="loading" role="status" class="load-state">正在读取本地运行记录…</div>
+      <div id="load-error" hidden role="alert" class="load-state"><strong>运行记录暂时无法读取</strong><p>请确认本地服务仍在运行，然后重试。</p><button id="retry-load">重新读取</button></div>
+      <div id="workspace" class="workspace" hidden>
+        <section class="summary-strip" aria-label="记录区间统计"><div id="totals"></div><span>不同类型可重叠，不能相加为运行耗时</span></section>
+        <div class="controls">
+          <label class="search-label"><span data-icon="search"></span><input id="search" type="search" aria-label="搜索全部日志片段" placeholder="搜索编号、工具或内容…"></label>
+          <label><span class="sr-only">日志类型</span><select id="kind"><option value="all">全部类型</option><option value="tool">工具调用</option><option value="thinking">思考输出</option><option value="text">文字输出</option><option value="gap">无日志间隔</option></select></label>
+          <label><span class="sr-only">显示方式</span><select id="mode"><option value="longest">较长片段前 20</option><option value="sequence">按发生顺序 · 每页 40</option></select></label>
+          <div class="zoom-buttons" role="group" aria-label="时间轴缩放"><button id="zoom-out" aria-label="缩小时间轴" title="缩小时间轴"><span data-icon="minus"></span></button><button id="zoom-in" aria-label="放大时间轴" title="放大时间轴"><span data-icon="plus"></span></button><button id="zoom-fit">全程</button></div>
+        </div>
+        <div class="examples"><span>试着展开</span><button data-example="244">命令返回 · 含警告</button><button data-example="747">长文档 · 输入被截断</button><button data-example="796">文件修改 · 查看差异</button><button data-example="61">文件读取 · 文档排版</button><span class="example-hint">点同一行收起 · 默认只展开一条</span></div>
+        <div class="axis-overview"><div id="overview" aria-hidden="true"></div><div class="overview-foot"><span id="record-count"></span><span id="time-range"></span></div><label id="pan-control" hidden>平移时间窗口<input id="pan" type="range" min="0" max="100" value="0" step="100" aria-label="平移时间窗口"></label></div>
+        <section id="timeline-scroll" class="timeline-scroll" aria-label="日志时间瀑布"><div class="timeline-head"><span>日志片段 <small>点击展开 / 收起</small></span><div id="axis" class="axis"></div><span><button id="sort-duration" aria-label="按记录跨度排序" data-order="trace">记录跨度 ↕</button></span></div><div id="timeline"></div></section>
+        <footer class="timeline-footer"><span id="visible-count"></span><div><button id="prev-batch" class="sm">上一页</button><span id="batch-count"></span><button id="next-batch" class="sm">下一页</button></div></footer>
+        <p class="source-note">本地快照 · 2026-11-05 08:33　<span>工具跨度按调用与匹配返回计算，含可能的上报延迟。解析只整理已捕获内容。</span></p>
+      </div>
+    </main>
+  </div>
+  <dialog id="reader" aria-labelledby="reader-title"><header class="reader-header"><div><p class="eyebrow" id="reader-kicker"></p><h2 id="reader-title"></h2></div><button id="close-reader" class="icon-button" aria-label="关闭完整阅读"><span data-icon="close"></span></button></header><div class="reader-tools"><div id="reader-tabs" class="detail-tabs" role="tablist" aria-label="完整阅读内容"></div><button id="copy-content" class="quiet">复制当前内容</button><button id="download-record" class="quiet">下载原始记录</button></div><div class="reader-search"><input id="reader-search" type="search" placeholder="在当前内容中查找…" aria-label="在当前内容中查找"><span id="match-count" role="status"></span><button id="prev-match" aria-label="上一个匹配"><span data-icon="arrowUp"></span></button><button id="next-match" aria-label="下一个匹配"><span data-icon="arrowDown"></span></button></div><div id="reader-content" class="reader-content"></div><footer class="reader-footer">完整阅读仅包含本地快照已捕获的记录；被截断的内容无法补回。<span>Esc 关闭</span></footer></dialog>
+  <div id="toast" role="status" hidden></div>
+  <script type="module" src="./waterfall.js"></script>
+</body>
+</html>

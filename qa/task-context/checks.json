@@ -1,0 +1,30 @@
+{
+  "checks": [
+    "task entry subject retained",
+    "business status separate",
+    "source task link",
+    "seven child links",
+    "timeline to graph same run",
+    "graph to timeline same run",
+    "waterfall retains full task title",
+    "return to origin timeline",
+    "run belongs to original task",
+    "process retains task and run",
+    "return retains original selected run",
+    "task switch loads own runs",
+    "return to graph from graph",
+    "no-run task falls back to its own detail",
+    "1366 detail no overflow",
+    "1366 graph no overflow",
+    "1366 waterfall no overflow",
+    "waterfall usable reading height",
+    "1366 process no overflow",
+    "process usable reading height",
+    "390 detail no overflow",
+    "390 graph no overflow",
+    "390 waterfall no overflow",
+    "390 process no overflow",
+    "no script errors"
+  ],
+  "errors": []
+}

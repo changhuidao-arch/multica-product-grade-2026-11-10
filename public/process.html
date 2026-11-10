@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#faf7f0">
+  <title>执行过程 · Multica</title>
+  <link rel="icon" href="./mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./ui.css">
+</head>
+<body class="process-page">
+  <div class="shell">
+    <header class="top app-header">
+      <nav class="breadcrumb" aria-label="位置">任务监控 <span>/</span> CXTE-4 <span>/</span> <span>#d1701910</span></nav>
+      <div class="header-end"><span class="snapshot-chip" title="当前展示的是本地快照，不是实时数据">本地快照 · 11-05 08:33</span><select id="theme" aria-label="外观主题"><option value="cream">暖奶油</option><option value="paper">素纸</option><option value="dark">夜间</option></select></div>
+    </header>
+    <main class="process-main">
+      <header class="process-heading"><div class="heading-identity"><span class="agent-avatar" aria-hidden="true"></span><div><div class="heading-line"><h1>执行过程</h1><span class="run-status">运行完成</span></div><p>需求文档拆解分析师</p></div></div><nav class="run-views" aria-label="运行查看方式"><a href="./waterfall.html">时间瀑布</a><a href="./process.html" aria-current="page">对话过程</a></nav></header>
+      <div class="process-toolbar"><label class="process-search"><span data-icon="search"></span><input id="flow-search" type="search" placeholder="搜索回复、工具或返回内容…" aria-label="搜索执行过程"></label><label><span class="sr-only">记录类型</span><select id="flow-kind"><option value="all">全部记录</option><option value="tool">工具调用</option><option value="text">智能体回复</option><option value="thinking">思考记录</option></select></label><button id="go-start" class="quiet">回到开头</button><button id="go-latest" class="quiet">回到最新 ↓</button></div>
+      <div class="flow-options"><div class="flow-examples"><span>查看示例</span><button data-case="96">文档标题</button><button data-case="244">依赖警告</button><button data-case="796">文件差异</button><button data-case="747">长输入</button></div><div class="expand-options"><label><input id="show-empty" type="checkbox">显示空白输出</label><label><input id="keep-open" type="checkbox">允许多条展开</label><button id="collapse-entries" class="sm" disabled>收起全部</button></div></div>
+      <div id="process-loading" role="status" class="load-state">正在读取本地对话记录…</div>
+      <div id="process-error" role="alert" class="load-state" hidden><strong>执行记录暂时无法读取</strong><p>确认本地服务仍在运行后重试。</p><button id="reload-process">重新读取</button></div>
+      <div id="process-workspace" class="process-workspace" hidden>
+        <section id="flow-scroll" class="flow-scroll" aria-label="执行对话记录" tabindex="0"><div id="flow-content"></div></section>
+        <aside class="process-index" aria-label="按时间跳转"><div class="index-heading"><span data-icon="clock"></span><h2>时间脉络</h2></div><p class="index-hint">按发生时间浏览这次运行</p><nav id="time-index"></nav><div class="record-composition"><h3>记录构成</h3><div id="record-composition"></div></div><div class="capture-range"><h3>完整快照</h3><p id="capture-count"></p><p id="empty-label" class="range-note"></p><p class="range-note">调用与返回按 ID 配对；保留原始顺序与截断标记。</p></div></aside>
+      </div>
+      <footer class="process-footer"><span id="flow-count" role="status"></span><span>历史快照 · 2026-11-05 08:33</span></footer>
+    </main>
+  </div>
+  <dialog id="reader" aria-labelledby="reader-title"><header class="reader-header"><div><p class="eyebrow" id="reader-kicker"></p><h2 id="reader-title"></h2></div><button id="close-reader" class="icon-button" aria-label="关闭完整阅读"><span data-icon="close"></span></button></header><div class="reader-tools"><div id="reader-tabs" class="detail-tabs" role="tablist" aria-label="完整阅读内容"></div><button id="copy-content" class="quiet">复制当前内容</button><button id="download-record" class="quiet">下载原始记录</button></div><div class="reader-search"><input id="reader-search" type="search" placeholder="在当前内容中查找…" aria-label="在当前内容中查找"><span id="match-count" role="status"></span><button id="prev-match" aria-label="上一个匹配"><span data-icon="arrowUp"></span></button><button id="next-match" aria-label="下一个匹配"><span data-icon="arrowDown"></span></button></div><div id="reader-content" class="reader-content"></div><footer class="reader-footer">只展示本地快照已捕获的记录；截断的内容无法补回。<span>Esc 关闭</span></footer></dialog>
+  <div id="toast" role="status" hidden></div>
+  <script type="module" src="./process.js"></script>
+</body>
+</html>

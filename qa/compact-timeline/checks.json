@@ -1,0 +1,27 @@
+{
+  "checks": [
+    "default compact",
+    "nine real runs",
+    "240px rail",
+    "wide reader",
+    "selection does not expand",
+    "expanded timeline",
+    "reader DOM preserved",
+    "expanded input preserved",
+    "reader scroll preserved",
+    "selected run preserved",
+    "sort retains selection",
+    "longest sorted first",
+    "keyboard collapse",
+    "reader gains width",
+    "run selection remains compact",
+    "1366 False no document overflow",
+    "1366 True no document overflow",
+    "900 False no document overflow",
+    "900 True no document overflow",
+    "390 False no document overflow",
+    "390 True no document overflow",
+    "no JS errors"
+  ],
+  "errors": []
+}

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f3ed">
+  <meta name="description" content="Multica 暖奶油主题的完整设计前后对照：8 个页面、真实快照、交互审查与优化效果稿。">
+  <title>Multica · 设计前后对照</title>
+  <link rel="icon" href="./mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到对比内容</a>
+  <aside class="sidebar">
+    <a class="brand" href="#tasks"><img src="./mark.svg" width="35" height="42" alt=""><span><b>Multica</b><small>设计对照室</small></span></a>
+    <div class="edition"><span class="edition-dot"></span>暖奶油主题<span>第 2 轮</span></div>
+    <nav id="page-nav" aria-label="页面导航"></nav>
+    <div class="sidebar-bottom">
+      <button id="open-coverage" class="plain-button" type="button"><span data-icon="checklist"></span>查看功能核验</button>
+      <button id="export-review" class="plain-button" type="button"><span data-icon="download"></span>导出审阅记录</button>
+      <p><span class="local-dot"></span>本地对照站<small>快照 · 2026-11-05 08:33</small></p>
+    </div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div class="topbar-title"><span class="desktop-label">Multica</span><span class="slash">/</span><span>界面设计对照</span></div><div class="topbar-right"><a class="next-button" href="./new.html#tasks">进入完整新版 ↗</a><span id="review-progress">0 / 9 已审阅</span><button id="mobile-coverage" class="icon-button mobile-only" aria-label="查看功能核验" type="button"><span data-icon="checklist"></span></button></div></header>
+    <main id="main" tabindex="-1">
+      <div class="page-heading">
+        <div><p class="eyebrow" id="page-category">工作流</p><h1 id="page-title">任务监控</h1><p class="page-intro" id="page-intro"></p></div>
+        <div class="page-step"><button id="prev-page" class="icon-button" type="button" aria-label="上一页"><span data-icon="left"></span></button><span id="page-position">1 / 9</span><button id="next-page" class="icon-button" type="button" aria-label="下一页"><span data-icon="right"></span></button></div>
+      </div>
+      <section id="interactive-entry" class="interactive-entry" hidden><div><strong>时间轴行内展开与内容解析</strong><p>下方已同步新版实际截图。点击同一片段展开 / 收起；长输入、长返回、文件差异均可实际操作。</p></div><a href="./waterfall.html" class="next-button">试用新交互 ↗</a></section>
+      <section class="comparison" aria-label="设计前后对照">
+        <div class="comparison-toolbar">
+          <div class="mode-switch" role="group" aria-label="对照方式">
+            <button type="button" data-mode="single"><span data-icon="image"></span>单图大看</button>
+            <button type="button" data-mode="split" aria-pressed="true"><span data-icon="split"></span><span class="desktop-label">并排对照</span><span class="mobile-only">上下对照</span></button>
+            <button type="button" data-mode="wipe"><span data-icon="wipe"></span>滑动对照</button>
+          </div>
+          <div class="version-switch" id="version-switch" role="group" aria-label="显示版本"><button type="button" data-version="before">设计前</button><button type="button" data-version="after" aria-pressed="true">设计后</button></div>
+          <button id="enlarge-current" class="quiet-button" type="button"><span data-icon="expand"></span>放大查看</button>
+        </div>
+        <div id="viewer" class="viewer mode-split" aria-live="off"></div>
+        <div class="viewer-footer"><p id="viewer-caption">每张图片均标注实际来源。</p><span id="viewer-hint">点击图片，可放大查看细节</span></div>
+      </section>
+      <section class="changes-section" aria-labelledby="changes-title">
+        <div class="section-heading"><h2 id="changes-title">这一页，改在哪里</h2><span id="scenario-count"></span></div>
+        <div id="changes" class="change-list"></div>
+      </section>
+      <section class="evidence-section" id="evidence-section" aria-labelledby="evidence-title">
+        <div class="section-heading"><h2 id="evidence-title">展开之后的现场</h2><p>来自实际操作的截图</p></div>
+        <div id="evidence" class="evidence-grid"></div>
+      </section>
+      <section class="review-section" aria-labelledby="review-title">
+        <div class="review-heading"><div><h2 id="review-title">这一页的审阅意见</h2><p>仅保存在本机浏览器，可导出汇总。</p></div><span id="save-status" role="status"></span></div>
+        <div class="review-options" role="group" aria-label="审阅结论"><button type="button" data-verdict="pending">暂未决定</button><button type="button" data-verdict="accepted"><span data-icon="check"></span>认可这个方向</button><button type="button" data-verdict="changes"><span data-icon="edit"></span>需要调整</button></div>
+        <label class="comment-label" for="review-note">补充意见</label><textarea id="review-note" rows="3" maxlength="4000" placeholder="例如：保留调用图原有操作，把详情栏再收窄一些…"></textarea>
+      </section>
+      <footer class="page-footer"><p>真实数据快照：10 个任务 · 22 次运行<span>完整新版已在本对比站实现 · 点击上方入口实际操作。</span></p><button id="continue-review" type="button" class="next-button">查看下一页<span data-icon="right"></span></button></footer>
+    </main>
+  </div>
+  <dialog id="lightbox" class="lightbox" aria-label="放大查看设计图">
+    <div class="lightbox-toolbar"><div><strong id="lightbox-title"></strong><small id="lightbox-source"></small></div><div class="lightbox-actions"><div id="lightbox-versions" class="version-switch" role="group" aria-label="放大图版本"><button type="button" data-light-version="before">设计前</button><button type="button" data-light-version="after">设计后</button></div><button id="zoom-toggle" class="quiet-button" type="button" aria-pressed="false">原始尺寸</button><a id="download-image" class="quiet-button desktop-label" download><span data-icon="download"></span>保存图片</a><button id="close-lightbox" class="icon-button" type="button" aria-label="关闭大图"><span data-icon="close"></span></button></div></div>
+    <div id="lightbox-scroll" class="lightbox-scroll"><img id="lightbox-image" alt=""></div>
+    <p class="lightbox-foot" id="lightbox-foot">图片保持原始比例 · Esc 关闭</p>
+  </dialog>
+  <dialog id="coverage-dialog" class="coverage-dialog" aria-labelledby="coverage-title"><div class="dialog-heading"><div><p class="eyebrow">有记录的检查</p><h2 id="coverage-title">这次具体看了什么</h2></div><button id="close-coverage" class="icon-button" type="button" aria-label="关闭功能核验"><span data-icon="close"></span></button></div><div id="coverage-body"></div><div class="coverage-footer"><span>来源：本地浏览器实测 · 2026-11-06</span><button id="coverage-done" type="button" class="next-button">知道了</button></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
